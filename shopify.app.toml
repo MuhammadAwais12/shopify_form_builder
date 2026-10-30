@@ -1,12 +1,11 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "5f7e278a69d7a28ebbf893802326bb26"
-application_url = "https://example.com"
+client_id = "b05cb972426fc812edf61fcc4890a824"
+application_url = "https://shopifyformbuilder-8znu.vercel.app"
 embedded = true
 name = "Form-builder"
 
 [access_scopes]
-# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "write_products,write_metaobjects,write_metaobject_definitions"
 
 [product.metafields.app.demo_info]
@@ -45,7 +44,10 @@ api_version = "2027-01"
   topics = [ "app/scopes_update" ]
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://shopifyformbuilder-8znu.vercel.app/auth/callback",
+  "https://shopifyformbuilder-8znu.vercel.app/auth/login"
+]
 
 [build]
 include_config_on_deploy = true
