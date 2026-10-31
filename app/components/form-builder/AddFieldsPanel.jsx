@@ -1,20 +1,21 @@
 import { FIELD_TYPES } from "../../utils/form-fields";
 
-export default function AddFieldsPanel({ onAddField }) {
+export default function AddFieldsPanel({ onAddField, disabled = false }) {
   return (
     <s-section heading="Add fields">
-      <s-grid
-        gridTemplateColumns="@container (inline-size > 500px) 1fr 1fr, 1fr"
-        gap="base"
-      >
+      <s-stack gap="small-300">
         {FIELD_TYPES.map(({ type, label }) => (
-          <s-grid-item key={type}>
-            <s-button variant="secondary" onClick={() => onAddField(type)}>
-              {label}
-            </s-button>
-          </s-grid-item>
+          <s-button
+            key={type}
+            inlineSize="fill"
+            accessibilityLabel={`Add ${label} field`}
+            onClick={() => onAddField(type)}
+            {...(disabled ? { disabled: true } : {})}
+          >
+            {label}
+          </s-button>
         ))}
-      </s-grid>
+      </s-stack>
     </s-section>
   );
 }
