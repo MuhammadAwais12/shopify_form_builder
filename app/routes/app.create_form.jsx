@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { data, useActionData, useNavigation, useSubmit } from "react-router";
-
+import { redirect } from "react-router";
 import { authenticate } from "../shopify.server";
 import {
   parseFormPayload,
@@ -26,7 +26,7 @@ export async function loader({ request }) {
 
 export async function action({ request }) {
   // shop always comes from the session, never from the request body
-  const { session, redirect } = await authenticate.admin(request);
+  const { session } = await authenticate.admin(request);
 
   let body;
   try {

@@ -70,7 +70,7 @@ export default function Index() {
         slot="primary-action"
         variant="primary"
         icon="plus"
-        href="/app/create/forms"
+        href="/app/create_form"
       >
         Create form
       </s-button>
@@ -99,7 +99,7 @@ export default function Index() {
                   caption="Forms created"
                 />
               </s-grid-item>
-              <s-grid-item>  
+              <s-grid-item>
                 <StatCard
                   icon="email"
                   label="Total submissions"
@@ -139,7 +139,7 @@ export default function Index() {
             <s-paragraph>
               Build a form, then show it on your storefront.
             </s-paragraph>
-            <s-button variant="primary" href="/app/forms">
+            <s-button variant="primary" href="/app/create_form">
               Create form
             </s-button>
           </s-stack>

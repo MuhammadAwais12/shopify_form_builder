@@ -22,7 +22,7 @@ export default function FormFieldsList({
       {fields.length === 0 ? (
         <s-text>Add a field to start building your form.</s-text>
       ) : (
-        <s-stack gap="base">
+        <s-stack gap="small-300">
           {fields.map((field, index) => (
             <s-box
               key={field.id}

@@ -155,6 +155,7 @@ export function parseFormPayload(body) {
       name,
       status: body.status,
       submitText,
+      // submitButtonText: submitText,
       successMessage,
       fields: fields.value,
     },

@@ -6,21 +6,23 @@ export default function FormBuilderLayout({
 }) {
   return (
     <s-stack gap="base">
+      {/* First row: Full-width form details */}
       {details}
 
-      <s-grid
-        gridTemplateColumns="@container (inline-size > 700px) 1fr 1fr, 1fr"
-        gap="base"
-      >
-        <s-grid-item>
-          <s-stack gap="base">
-            {addFields}
-            {fieldsList}
-          </s-stack>
-        </s-grid-item>
+      {/* Second row: Three columns */}
+      <s-query-container>
+        <s-grid
+          gridTemplateColumns="@container (inline-size > 900px) 1fr 2fr 1fr, 1fr"
+          gap="base"
+          alignItems="start"
+        >
+          <s-grid-item>{addFields}</s-grid-item>
 
-        <s-grid-item>{fieldSettings}</s-grid-item>
-      </s-grid>
+          <s-grid-item>{fieldsList}</s-grid-item>
+
+          <s-grid-item>{fieldSettings}</s-grid-item>
+        </s-grid>
+      </s-query-container>
     </s-stack>
   );
 }
