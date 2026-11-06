@@ -20,7 +20,7 @@ export default function App() {
         <s-link href="/app">Home</s-link>
         <s-link href="/app/create_form">Create new form</s-link>
         <s-link href="/app/forms">All forms</s-link>
-        <s-link href="/app/submissions ">Submissions</s-link>
+        <s-link href="/app/submissions">Submissions</s-link>
       </s-app-nav>
       <Outlet />
     </AppProvider>

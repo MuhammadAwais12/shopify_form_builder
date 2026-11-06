@@ -1,3 +1,8 @@
+import {
+  OPTION_FIELD_TYPES,
+  PLACEHOLDER_FIELD_TYPES,
+} from "../../utils/form-fields";
+
 export default function FieldSettings({ field, onChange }) {
   if (!field) {
     return (
@@ -7,7 +12,8 @@ export default function FieldSettings({ field, onChange }) {
     );
   }
 
-  const hasOptions = ["select", "radio"].includes(field.fieldType);
+  const hasOptions = OPTION_FIELD_TYPES.includes(field.fieldType);
+  const optionsText = field.optionsText ?? (field.options || []).join("\n");
 
   return (
     <s-section heading="Field settings">
@@ -15,23 +21,25 @@ export default function FieldSettings({ field, onChange }) {
         <s-text-field
           label="Field label"
           value={field.label}
-          onChange={(value) => onChange("label", value)}
+          onChange={(event) => onChange("label", event.currentTarget.value)}
         />
 
-        {["text", "email", "number", "phone", "textarea"].includes(
-          field.fieldType,
-        ) && (
+        {PLACEHOLDER_FIELD_TYPES.includes(field.fieldType) && (
           <s-text-field
             label="Placeholder"
             value={field.placeholder || ""}
-            onChange={(value) => onChange("placeholder", value)}
+            onChange={(event) =>
+              onChange("placeholder", event.currentTarget.value)
+            }
           />
         )}
 
         <s-checkbox
           label="Required field"
           checked={field.required}
-          onChange={(value) => onChange("required", value)}
+          onChange={(event) =>
+            onChange("required", event.currentTarget.checked)
+          }
         />
 
         {hasOptions && (
@@ -41,15 +49,9 @@ export default function FieldSettings({ field, onChange }) {
                 ? "Radio button options (one per line)"
                 : "Dropdown options (one per line)"
             }
-            value={(field.options || []).join("\n")}
-            onChange={(value) =>
-              onChange(
-                "options",
-                value
-                  .split("\n")
-                  .map((option) => option.trim())
-                  .filter(Boolean),
-              )
+            value={optionsText}
+            onChange={(event) =>
+              onChange("optionsText", event.currentTarget.value)
             }
             rows={5}
           />

@@ -39,9 +39,9 @@ model Form {
   shop        String                           // shop domain, e.g. "my-shop.myshopify.com"
   name        String                           // form name, e.g. "Contact Us"
   slug        String                          // public handle, e.g. "contact-us"
-  status      String       @default("draft")
+  status      String       @default("draft")      // "draft" | "published" (validate in code)
   submitButtonText String @default("Submit")
-  successMessage   String @default("Thanks! Your response was received.")  // "draft" | "published" (validate in code)
+  successMessage   String @default("Thanks! Your response was received.") @db.VarChar(500)
   fields      Field[]                         // form fields
   submissions Submission[]                    // form submissions
   createdAt   DateTime     @default(now())
@@ -54,9 +54,9 @@ model Field {
   id         String    @id @default(cuid())
   formId     String
   label      String
-  fieldType  String                            // "text" | "email" | "textarea" | "select" | "checkbox" (validate in code)
+  fieldType  String                            // "text" | "email" | "number" | "phone" | "textarea" | "select" | "radio" | "checkbox" | "date" (validate in code)
   required   Boolean   @default(false)
-  options    Json?                             // select only: [{ "label": "...", "value": "..." }]
+  options    Json?                             // select/radio only: ["Option 1", "Option 2"]
   position   Int       @default(0)
   placeholder String?
   archivedAt DateTime?                         // set instead of deleting; null = active

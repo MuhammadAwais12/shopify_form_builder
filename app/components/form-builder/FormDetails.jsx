@@ -1,3 +1,4 @@
+
 export default function FormDetails({
   name,
   status,
@@ -30,7 +31,7 @@ export default function FormDetails({
             onChange={(event) => onChange("status", event.currentTarget.value)}
           >
             <s-option value="draft">Draft</s-option>
-            <s-option value="active">Active</s-option>
+            <s-option value="published">Active</s-option>
           </s-select>
         </s-grid-item>
 
