@@ -12,3 +12,4 @@ export function getPagination(request, pageSize) {
 export function pageRows(rows, pageSize) {
   return { rows: rows.slice(0, pageSize), hasNextPage: rows.length > pageSize };
 }
+  

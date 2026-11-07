@@ -1,0 +1,51 @@
+{{ 'form-embed.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="fb-form"
+  data-fb-form
+  data-slug="{{ block.settings.form_slug | strip | escape }}"
+  data-endpoint="/apps/forms/api"
+  style="--fb-accent: {{ block.settings.accent_color }}; --fb-max-width: {{ block.settings.max_width }}px;"
+  {{ block.shopify_attributes }}
+>
+  {%- if block.settings.form_slug == blank -%}
+    {%- if request.design_mode -%}
+      <p class="fb-notice">Enter your form handle in this block's settings to show the form.</p>
+    {%- endif -%}
+  {%- else -%}
+    <p class="fb-notice" data-fb-loading>Loading form…</p>
+  {%- endif -%}
+</div>
+
+<script src="{{ 'form-embed.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Form",
+  "target": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "form_slug",
+      "label": "Form handle",
+      "info": "The handle of the form you created in the Form Builder app, e.g. contact-us"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Button color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 320,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 640
+    }
+  ]
+}
+{% endschema %}
