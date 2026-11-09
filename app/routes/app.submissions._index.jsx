@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router";
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
+import LocalTime from "../components/LocalTime";
 import { getPagination, pageRows } from "../lib/pagination.server";
 
 const PAGE_SIZE = 25;
@@ -73,7 +74,7 @@ export default function SubmissionsPage() {
           <s-link href="/app/submissions">Show all</s-link>
         </s-banner>
       )}
-<s-section>
+
       <s-grid gridTemplateColumns="repeat(2, 1fr)" gap="base">
         <s-grid-item>
           <s-box border="base" padding="base" borderRadius="base">
@@ -89,8 +90,8 @@ export default function SubmissionsPage() {
           </s-box>
         </s-grid-item>
       </s-grid>
-</s-section>
-      <s-section heading="All submissions" >
+
+      <s-section heading="All submissions">
         {submissions.length === 0 ? (
           <s-box padding="large">
             <s-text>
@@ -119,7 +120,7 @@ export default function SubmissionsPage() {
                     </s-table-cell>
 
                     <s-table-cell>
-                      {new Date(submission.createdAt).toLocaleString()}
+                      <LocalTime value={submission.createdAt} />
                     </s-table-cell>
 
                     <s-table-cell>

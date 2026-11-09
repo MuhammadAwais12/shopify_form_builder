@@ -3,7 +3,7 @@ import { FIELD_TYPES } from "../../utils/form-fields";
 export default function AddFieldsPanel({ onAddField, disabled = false }) {
   return (
     <s-section heading="Add fields">
-      <s-stack gap="small-300">
+      <s-stack gap="base">
         {FIELD_TYPES.map(({ type, label }) => (
           <s-button
             key={type}

@@ -8,6 +8,7 @@ import {
 } from "react-router";
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
+import LocalTime from "../components/LocalTime";
 import { formatSubmissionValue } from "../utils/form-fields";
 
 const notFound = () => new Response("Submission not found", { status: 404 });
@@ -114,7 +115,7 @@ export default function SubmissionPage() {
       <s-section heading="Responses">
         <s-stack gap="base">
           <s-text color="subdued">
-            Received {new Date(submission.createdAt).toLocaleString()} ·{" "}
+            Received <LocalTime value={submission.createdAt} /> ·{" "}
             <s-link href={`/app/forms/${form.id}`}>{form.name}</s-link>
           </s-text>
           {answers.map((answer) => (
