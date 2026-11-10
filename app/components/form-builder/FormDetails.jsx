@@ -1,4 +1,3 @@
-
 export default function FormDetails({
   name,
   status,

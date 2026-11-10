@@ -1,5 +1,6 @@
 export default function FormBuilderLayout({
   details,
+  notifications,
   addFields,
   fieldsList,
   fieldSettings,
@@ -8,6 +9,9 @@ export default function FormBuilderLayout({
     <s-stack gap="base">
       {/* First row: Full-width form details */}
       {details}
+
+      {/* Optional full-width panel under the details */}
+      {notifications}
 
       {/* Second row: Three columns */}
       <s-query-container>

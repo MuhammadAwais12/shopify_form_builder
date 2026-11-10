@@ -42,6 +42,7 @@ model Form {
   status      String       @default("draft")      // "draft" | "published" (validate in code)
   submitButtonText String @default("Submit")
   successMessage   String @default("Thanks! Your response was received.") @db.VarChar(500)
+  notificationEmail String? @db.VarChar(254)       // optional: where new submissions are emailed
   fields      Field[]                         // form fields
   submissions Submission[]                    // form submissions
   createdAt   DateTime     @default(now())

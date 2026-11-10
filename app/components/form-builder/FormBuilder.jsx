@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import FormDetails from "./FormDetails";
+import NotificationSettings from "./NotificationSettings";
 import AddFieldsPanel from "./AddFieldsPanel";
 import FormFieldsList from "./FormFieldsList";
 import FieldSettings from "./FieldSettings";
@@ -82,6 +83,12 @@ export default function FormBuilder({
 
       <FormBuilderLayout
         details={<FormDetails {...formDetails} onChange={updateFormDetail} />}
+        notifications={
+          <NotificationSettings
+            notificationEmail={formDetails.notificationEmail}
+            onChange={updateFormDetail}
+          />
+        }
         addFields={<AddFieldsPanel onAddField={addField} />}
         fieldsList={
           <FormFieldsList

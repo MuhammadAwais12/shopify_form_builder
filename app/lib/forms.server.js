@@ -13,13 +13,17 @@ const STATUSES = new Set(FORM_STATUSES);
 export const LIMITS = {
   name: 191,
   submitText: 100,
-  successMessage: 500,
+  successMessage: 500, // must not exceed the DB column (VarChar 500)
+  notificationEmail: 254, // must not exceed the DB column (VarChar 254)
   fields: 100,
   label: 100,
   placeholder: 150,
   options: 50,
   option: 100,
 };
+
+// One plain address only: no spaces, commas, display names or angle brackets.
+const NOTIFICATION_EMAIL = /^[^\s@,;<>()"]+@[^\s@,;<>()"]+\.[^\s@,;<>()"]+$/;
 
 const isPlainObject = (v) =>
   v !== null && typeof v === "object" && !Array.isArray(v);
@@ -156,6 +160,24 @@ export function parseFormPayload(body) {
     };
   }
 
+  // Optional: empty means "no notifications" and is stored as NULL.
+  let notificationEmail = null;
+  if (body.notificationEmail !== undefined && body.notificationEmail !== null) {
+    if (typeof body.notificationEmail !== "string") {
+      return { error: "Enter a valid notification email address." };
+    }
+    const trimmed = body.notificationEmail.trim();
+    if (trimmed !== "") {
+      if (
+        trimmed.length > LIMITS.notificationEmail ||
+        !NOTIFICATION_EMAIL.test(trimmed)
+      ) {
+        return { error: "Enter a valid notification email address." };
+      }
+      notificationEmail = trimmed;
+    }
+  }
+
   const fields = parseFields(body.fields);
   if (fields.error) return fields;
 
@@ -169,6 +191,7 @@ export function parseFormPayload(body) {
       status: body.status,
       submitButtonText: submitText,
       successMessage,
+      notificationEmail,
       fields: fields.value,
     },
   };

@@ -32,6 +32,7 @@ export async function loader({ request, params }) {
       status: form.status,
       submitButtonText: form.submitButtonText,
       successMessage: form.successMessage,
+      notificationEmail: form.notificationEmail ?? "",
       updatedAt: form.updatedAt,
       submissionCount: form._count.submissions,
     },
@@ -117,6 +118,7 @@ export default function EditFormPage() {
         status: form.status,
         submitButtonText: form.submitButtonText,
         successMessage: form.successMessage,
+        notificationEmail: form.notificationEmail,
       }}
       initialFields={fields}
       isSaving={isBusy}

@@ -11,6 +11,7 @@ const INITIAL_DETAILS = {
   status: "draft",
   submitButtonText: "Submit",
   successMessage: "Thanks! Your response was received.",
+  notificationEmail: "",
 };
 
 export async function loader({ request }) {

@@ -2,6 +2,7 @@ import { data } from "react-router";
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
 import { parseSubmission } from "../lib/submissions.server";
+import { sendSubmissionNotification } from "../lib/notifications.server";
 
 const MAX_BODY_BYTES = 50_000;
 const MAX_PER_MINUTE = 30; // per form
@@ -60,12 +61,26 @@ export async function action({ request }) {
     return data({ ok: false, errors: parsed.errors }, { status: 400 });
   }
 
+  let submission;
   try {
-    await prisma.submission.create({ data: { formId: form.id, data: parsed.data } });
+    submission = await prisma.submission.create({
+      data: { formId: form.id, data: parsed.data },
+    });
   } catch (error) {
     console.error("Create submission failed:", error);
     return data({ ok: false, error: "Could not save your response." }, { status: 500 });
   }
+
+  // The response is already saved. Email problems are logged and never change
+  // the result the visitor sees. It is awaited (with a timeout inside) because
+  // serverless platforms can stop un-awaited work after the response is sent.
+  await sendSubmissionNotification({
+    form,
+    fields: form.fields,
+    values: parsed.data,
+    shop,
+    submissionId: submission.id,
+  });
 
   return data({ ok: true });
 }
